@@ -868,102 +868,7 @@ npm run test:e2e
 
 ---
 
-## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
-
-### **How to Contribute**
-
-1. **Fork the repository**
-   ```bash
-   # Click "Fork" button on GitHub
-   ```
-
-2. **Clone your fork**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/groovi.git
-   cd groovi
-   ```
-
-3. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-
-4. **Make your changes**
-   - Write clean, documented code
-   - Follow existing code style
-   - Test your changes thoroughly
-
-5. **Commit with descriptive message**
-   ```bash
-   git add .
-   git commit -m "feat: add amazing feature"
-   ```
-
-6. **Push to your fork**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-
-7. **Open a Pull Request**
-   - Go to original repo on GitHub
-   - Click "New Pull Request"
-   - Describe your changes
-
-### **Commit Message Format**
-
-Use [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-feat: add new feature
-fix: fix bug in mood analyzer
-docs: update README
-style: format code
-refactor: restructure services
-test: add unit tests
-chore: update dependencies
-```
-
-### **Code Style**
-
-**Python (Backend):**
-- Follow [PEP 8](https://pep8.org/)
-- Use type hints
-- Document functions with docstrings
-- Format with `black`
-
-**TypeScript/React (Frontend):**
-- Follow [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
-- Use functional components with hooks
-- Add TypeScript types for all props
-- Format with `prettier`
-
-### **Feature Ideas & Roadmap**
-
-**High Priority:**
-- [ ] User authentication (login/signup)
-- [ ] Save mood history
-- [ ] Export playlist to Spotify
-- [ ] Playlist sharing via link
-
-**Medium Priority:**
-- [ ] More AI models (OpenAI GPT, Claude)
-- [ ] Multi-language support (i18n)
-- [ ] Dark/Light theme toggle
-- [ ] Mood journal feature
-- [ ] Weekly mood reports
-
-**Low Priority:**
-- [ ] Mobile app (React Native)
-- [ ] Desktop app (Electron)
-- [ ] Browser extension
-- [ ] Social features (friends, feed)
-- [ ] Mood-based challenges
-
-**Want to work on a feature?** Open an issue first to discuss!
-
----
 
 ## 📄 License
 
@@ -1005,17 +910,6 @@ SOFTWARE.
 - [Deepgram](https://deepgram.com/) - Advanced speech-to-text
 - [VADER](https://github.com/cjhutto/vaderSentiment) - Sentiment analysis lexicon
 
-### **Inspiration**
-- Spotify's Discover Weekly and Daily Mixes
-- Apple Music's mood-based playlists
-- YouTube Music's mood filters
-- Last.fm's music recommendations
-
-### **Special Thanks**
-- Open-source community for amazing libraries
-- Spotify for providing free API access
-- Groq for democratizing AI inference
-- All contributors and testers
 
 ---
 
@@ -1029,13 +923,7 @@ Having issues? Need help? Want to chat?
 - 💬 **Discussions:** [GitHub Discussions](https://github.com/yourusername/groovi/discussions)
 - 💡 **Feature Requests:** [GitHub Issues](https://github.com/yourusername/groovi/issues/new?template=feature_request.md)
 
-### **Connect:**
-- 🌐 **Website:** [groovi.app](https://groovi.app) *(coming soon)*
-- 📚 **Documentation:** [docs.groovi.app](https://docs.groovi.app) *(coming soon)*
-- 📝 **Blog:** [blog.groovi.app](https://blog.groovi.app) *(coming soon)*
-- 🐦 **Twitter:** [@GrooviApp](https://twitter.com/GrooviApp) *(if available)*
 
----
 
 ## 🌟 Star History
 
@@ -1045,19 +933,6 @@ If you find Groovi useful, please consider giving it a star! ⭐
 
 ---
 
-## 📊 Project Stats
-
-![GitHub stars](https://img.shields.io/github/stars/yourusername/groovi?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/groovi?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/yourusername/groovi?style=social)
-![GitHub contributors](https://img.shields.io/github/contributors/yourusername/groovi)
-![GitHub last commit](https://img.shields.io/github/last-commit/yourusername/groovi)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/groovi)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/groovi)
-![GitHub code size](https://img.shields.io/github/languages/code-size/yourusername/groovi)
-![GitHub license](https://img.shields.io/github/license/yourusername/groovi)
-
----
 
 ## 🔄 Version History
 
@@ -1083,92 +958,13 @@ If you find Groovi useful, please consider giving it a star! ⭐
 - AI: Groq, VADER, Deepgram
 - APIs: Spotify Web API
 
-### **Roadmap**
-
-**v1.1.0** - User Features (Q1 2025)
-- [ ] User authentication (login/signup)
-- [ ] Mood history tracking
-- [ ] Save favorite songs
-- [ ] User profiles
-
-**v1.2.0** - Social Features (Q2 2025)
-- [ ] Share mood analysis & playlists
-- [ ] Friend system
-- [ ] Mood feed
-- [ ] Comments and reactions
-
-**v1.3.0** - Export & Integration (Q2 2025)
-- [ ] Export playlist to Spotify
-- [ ] Apple Music integration
-- [ ] YouTube Music integration
-- [ ] Download playlist as CSV
-
-**v2.0.0** - Platform Expansion (Q3 2025)
-- [ ] Mobile app (React Native)
-- [ ] Desktop app (Electron)
-- [ ] Browser extension
-- [ ] Offline mode
-
-**v2.1.0** - Advanced Features (Q4 2025)
-- [ ] Mood journaling
-- [ ] Weekly/monthly mood reports
-- [ ] AI mood predictions
-- [ ] Personalized recommendations based on history
-- [ ] Multi-language support (i18n)
-
-**Future Ideas:**
-- Integration with wearables (mood detection from heart rate)
-- Group mood sessions
-- Live mood-based radio
-- Collaborative playlists
-- Mood challenges and achievements
-
----
-
-## 📖 Documentation
-
-### **For Users:**
-- [Getting Started Guide](docs/getting-started.md) *(coming soon)*
-- [User Manual](docs/user-manual.md) *(coming soon)*
-- [FAQ](docs/faq.md) *(coming soon)*
-
-### **For Developers:**
-- [API Reference](docs/api-reference.md) *(coming soon)*
-- [Architecture Guide](docs/architecture.md) *(coming soon)*
-- [Contributing Guide](CONTRIBUTING.md) *(coming soon)*
-- [Code of Conduct](CODE_OF_CONDUCT.md) *(coming soon)*
-
----
-
 ## 🎓 Learn More
-
-### **Technologies Used:**
-- [FastAPI Tutorial](https://fastapi.tiangolo.com/tutorial/)
-- [React Documentation](https://react.dev/learn)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Spotify Web API Guide](https://developer.spotify.com/documentation/web-api)
-- [Groq Documentation](https://console.groq.com/docs)
-- [Deepgram Documentation](https://developers.deepgram.com/)
-
-### **Related Projects:**
-- [Spotipy](https://github.com/spotipy-dev/spotipy) - Spotify API wrapper
-- [VADER Sentiment](https://github.com/cjhutto/vaderSentiment) - Sentiment analysis
-- [FastAPI](https://github.com/tiangolo/fastapi) - Web framework
-
----
 
 <div align="center">
 
 ## 💖 **Made with ❤️ by the Groovi Team**
 
-[Website](https://groovi.app) • [Documentation](https://docs.groovi.app) • [Blog](https://blog.groovi.app) • [Twitter](https://twitter.com/GrooviApp)
-
 **Happy vibing with Groovi! 🎵✨**
 
 ---
-
-If you like this project, please give it a ⭐ and share it with friends!
-
-[![Share on Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fgroovi)](https://twitter.com/intent/tweet?text=Check%20out%20Groovi%20-%20AI-powered%20mood-based%20music%20recommender!&url=https://github.com/yourusername/groovi)
-
 </div>
