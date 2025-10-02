@@ -201,7 +201,7 @@ You'll need to sign up for free API keys from:
 git clone https://github.com/yourusername/groovi.git
 
 # Navigate to project directory
-cd groovi/song-recommender
+cd groovi
 ```
 
 ### **Step 2: Backend Setup**
@@ -373,7 +373,7 @@ If you need to change the backend URL, edit:
 
 #### **Terminal 1 - Start Backend:**
 ```bash
-cd song-recommender/backend_new
+cd backend_new
 
 # Activate virtual environment
 # Windows Command Prompt:
@@ -401,7 +401,7 @@ INFO:     Started reloader process
 
 #### **Terminal 2 - Start Frontend:**
 ```bash
-cd song-recommender/frontend_new
+cd frontend_new
 
 # Start dev server
 npm run dev
@@ -418,7 +418,7 @@ npm run dev
 
 ### **Option 2: Quick Start Scripts**
 
-#### **Windows - Create `start.bat` in `song-recommender/` folder:**
+#### **Windows - Create `start.bat` in project root:**
 ```batch
 @echo off
 echo Starting Groovi Backend and Frontend...
@@ -429,7 +429,7 @@ start cmd /k "cd frontend_new && npm run dev"
 
 **Run:** Double-click `start.bat` or run `start.bat` in terminal
 
-#### **macOS/Linux - Create `start.sh` in `song-recommender/` folder:**
+#### **macOS/Linux - Create `start.sh` in project root:**
 ```bash
 #!/bin/bash
 echo "Starting Groovi Backend and Frontend..."
@@ -593,8 +593,8 @@ fetch('http://localhost:8000/recommend', {
 ## 📁 Project Structure
 
 ```
-song-recommender/
-├── backend_new/                    # Backend application (Modular)
+groovi/
+├── backend_new/                    # Backend application (Modular FastAPI)
 │   ├── config/
 │   │   └── settings.py            # Environment variables & config
 │   ├── models/
@@ -615,7 +615,7 @@ song-recommender/
 │   ├── .env                       # API keys (create this)
 │   └── .gitignore                 # Git ignore rules
 │
-├── frontend_new/                   # Frontend application (React + TypeScript)
+├── frontend_new/                   # Frontend application (React + TypeScript + Vite)
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── AudioRecorder.tsx  # Voice recording component
@@ -631,8 +631,6 @@ song-recommender/
 │   ├── vite.config.ts             # Vite build config
 │   └── .gitignore                 # Git ignore rules
 │
-├── backend/                        # Original backend (Legacy)
-├── frontend/                       # Original frontend (Legacy)
 └── README.md                       # This file
 ```
 
