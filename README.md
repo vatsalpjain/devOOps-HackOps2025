@@ -31,7 +31,6 @@
 - [API Documentation](#-api-documentation)
 - [Project Structure](#-project-structure)
 - [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
 
