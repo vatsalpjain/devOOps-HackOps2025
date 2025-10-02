@@ -1,7 +1,0 @@
-fastapi
-uvicorn[standard]
-spotipy
-google-cloud-language
-python-dotenv
-pydantic
-vaderSentiment

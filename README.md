@@ -1,74 +1,1176 @@
-# Mood-Based Song Recommender
+# 🎵 Groovi - AI-Powered Mood-Based Music Recommender
 
-A full-stack application that recommends songs based on your mood using sentiment analysis and the Spotify API.
+<div align="center">
 
-## Quick Fix for "Failed to fetch" Error
+![Groovi Banner](https://img.shields.io/badge/Groovi-Music%20Recommender-blueviolet?style=for-the-badge&logo=spotify)
 
-The "Failed to fetch" error occurs because the backend server is not running. Follow these steps:
+**Describe your mood with text or voice, and discover the perfect soundtrack powered by AI**
 
-### 1. Install Backend Dependencies
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Spotify API](https://img.shields.io/badge/Spotify-API-1DB954?style=flat&logo=spotify&logoColor=white)](https://developer.spotify.com/)
+
+[Features](#-features) • [Demo](#-demo) • [Installation](#-installation) • [Usage](#-usage) • [API Docs](#-api-documentation) • [Contributing](#-contributing)
+
+</div>
+
+---
+
+## 📖 Table of Contents
+
+- [About](#-about-the-project)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Running the Application](#-running-the-application)
+- [API Documentation](#-api-documentation)
+- [Project Structure](#-project-structure)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Acknowledgments](#-acknowledgments)
+
+---
+
+## 🎯 About The Project
+
+**Groovi** is an intelligent music recommendation system that analyzes your mood through text or voice input and curates a personalized playlist of 5 songs that perfectly match your emotional state. 
+
+### How It Works
+
+1. **Input Your Mood** - Type, speak, or upload audio describing how you feel
+2. **AI Analysis** - Advanced AI (Groq LLM) analyzes sentiment and generates insights
+3. **Smart Recommendations** - Get 5 perfectly matched songs from Spotify
+4. **Enjoy** - Listen directly on Spotify with one click
+
+---
+
+## ✨ Features
+
+### 🧠 **Intelligent Mood Analysis**
+- **AI-Powered Sentiment Analysis** using Groq LLM (Llama 4 Maverick)
+- **Fallback VADER Analysis** for reliable offline processing
+- **100-word AI-generated mood summaries** that celebrate and uplift your emotions
+
+### 🎤 **Multi-Modal Input**
+- ✍️ **Text Input** - Type your mood in natural language
+- 🎙️ **Voice Recording** - Record your mood directly in the browser
+- 📁 **Audio Upload** - Upload audio files (MP3, WAV, WebM, OGG, M4A)
+- 🗣️ **Speech-to-Text** - Powered by Deepgram API for accurate transcription
+
+### 🎵 **Smart Music Recommendations**
+- **5 Curated Songs** per mood analysis
+- **Spotify Integration** - Direct links to play on Spotify
+- **Album Artwork** - Beautiful visual presentation
+- **Fallback System** - Always returns recommendations even if APIs fail
+
+### 🎨 **Modern UI/UX**
+- **Dark Mode Design** with glassmorphism effects
+- **Responsive Layout** - Works on desktop, tablet, and mobile
+- **Smooth Animations** - Engaging user experience
+- **Real-time Feedback** - Loading states and error handling
+
+---
+
+## 🛠️ Tech Stack
+
+### **Backend**
+- **[FastAPI](https://fastapi.tiangolo.com/)** - Modern Python web framework
+- **[Spotipy](https://spotipy.readthedocs.io/)** - Spotify API wrapper
+- **[Groq](https://groq.com/)** - AI/LLM for mood analysis
+- **[Deepgram](https://deepgram.com/)** - Speech-to-text API
+- **[VADER Sentiment](https://github.com/cjhutto/vaderSentiment)** - Fallback sentiment analyzer
+- **[Pydantic](https://pydantic.dev/)** - Data validation
+- **[Uvicorn](https://www.uvicorn.org/)** - ASGI server
+
+### **Frontend**
+- **[React 18](https://react.dev/)** - UI library
+- **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
+- **[Vite](https://vitejs.dev/)** - Build tool and dev server
+- **[CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)** - Modern styling with animations
+
+### **APIs & Services**
+- **[Spotify Web API](https://developer.spotify.com/documentation/web-api)** - Music data and playback
+- **[Groq API](https://console.groq.com/)** - AI-powered mood analysis
+- **[Deepgram API](https://developers.deepgram.com/)** - Audio transcription
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         Frontend (React)                     │
+│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────┐   │
+│  │ Text Input  │  │ Voice Recorder│  │  Audio Uploader │   │
+│  └─────────────┘  └──────────────┘  └─────────────────┘   │
+│                           │                                  │
+│                           ▼                                  │
+│                  ┌─────────────────┐                        │
+│                  │   App.tsx       │                        │
+│                  └─────────────────┘                        │
+└────────────────────────│───────────────────────────────────┘
+                         │
+                         │ HTTP Requests
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      Backend (FastAPI)                       │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │                     main.py (Routes)                  │  │
+│  │  ┌─────────────────┐      ┌──────────────────────┐  │  │
+│  │  │ /transcribe     │      │    /recommend        │  │  │
+│  │  └─────────────────┘      └──────────────────────┘  │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                           │                                  │
+│                           ▼                                  │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │                Services Layer                         │  │
+│  │  ┌─────────────────┐  ┌──────────────────────────┐  │  │
+│  │  │ AudioTranscriber│  │    MoodAnalyzer          │  │  │
+│  │  │  (Deepgram)     │  │  (Groq AI + VADER)       │  │  │
+│  │  └─────────────────┘  └──────────────────────────┘  │  │
+│  │  ┌─────────────────┐  ┌──────────────────────────┐  │  │
+│  │  │SongRecommender  │  │   SpotifyClient          │  │  │
+│  │  │  (Multi-strategy)│  │   (Spotipy)              │  │  │
+│  │  └─────────────────┘  └──────────────────────────┘  │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                           │                                  │
+│                           ▼                                  │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │              Data & Config Layer                      │  │
+│  │  ┌─────────────────┐  ┌──────────────────────────┐  │  │
+│  │  │ mood_libraries  │  │      settings            │  │  │
+│  │  │  (Fallback data)│  │   (Environment vars)     │  │  │
+│  │  └─────────────────┘  └──────────────────────────┘  │  │
+│  └──────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    External APIs                             │
+│  ┌──────────────┐  ┌────────────┐  ┌──────────────────┐   │
+│  │ Spotify API  │  │  Groq API  │  │  Deepgram API    │   │
+│  └──────────────┘  └────────────┘  └──────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+### **Required Software**
+
+| Software | Version | Download Link |
+|----------|---------|---------------|
+| **Python** | 3.8 or higher | [python.org](https://www.python.org/downloads/) |
+| **Node.js** | 16.0 or higher | [nodejs.org](https://nodejs.org/) |
+| **npm** | 8.0 or higher | Comes with Node.js |
+| **Git** | Latest | [git-scm.com](https://git-scm.com/) |
+
+### **API Keys Required**
+
+You'll need to sign up for free API keys from:
+
+1. **[Spotify for Developers](https://developer.spotify.com/dashboard)**
+   - Create an app to get `Client ID` and `Client Secret`
+   - Free tier: Unlimited requests
+
+2. **[Groq Console](https://console.groq.com/)**
+   - Sign up for free API key
+   - Free tier: Generous rate limits
+
+3. **[Deepgram](https://console.deepgram.com/signup)** *(Optional - for audio transcription)*
+   - Sign up for free API key
+   - Free tier: $200 credit
+
+---
+
+## 🚀 Installation
+
+### **Step 1: Clone the Repository**
+
 ```bash
-cd backend
+# Clone the repo
+git clone https://github.com/yourusername/groovi.git
+
+# Navigate to project directory
+cd groovi/song-recommender
+```
+
+### **Step 2: Backend Setup**
+
+#### **2.1 Navigate to backend folder**
+```bash
+cd backend_new
+```
+
+#### **2.2 Create virtual environment**
+
+**Windows (Command Prompt):**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**Windows (PowerShell):**
+```bash
+python -m venv venv
+venv\Scripts\Activate.ps1
+```
+
+**macOS/Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+You should see `(venv)` prefix in your terminal.
+
+#### **2.3 Install Python dependencies**
+```bash
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 2. Start the Backend Server
+**Expected packages installed:**
+- fastapi
+- uvicorn[standard]
+- spotipy
+- groq
+- deepgram-sdk
+- vaderSentiment
+- pydantic
+- python-dotenv
+- python-multipart
+- requests
+
+#### **2.4 Verify installation**
 ```bash
-# Option 1: Using the start script
+pip list
+```
+
+### **Step 3: Frontend Setup**
+
+#### **3.1 Open new terminal and navigate to frontend**
+```bash
+cd ../frontend_new
+```
+
+#### **3.2 Install Node.js dependencies**
+```bash
+npm install
+```
+
+**Expected output:**
+```
+✓ Dependencies installed successfully
+```
+
+---
+
+## ⚙️ Configuration
+
+### **Backend Configuration**
+
+#### **Create `.env` file in `backend_new/` folder:**
+
+```bash
+# Navigate to backend_new folder
+cd backend_new
+
+# Create .env file
+# Windows: use notepad
+notepad .env
+
+# macOS/Linux: use nano or vim
+nano .env
+```
+
+#### **Add your API keys to `.env`:**
+
+```env
+# Spotify API Credentials (REQUIRED)
+# Get from: https://developer.spotify.com/dashboard
+SPOTIPY_CLIENT_ID=your_spotify_client_id_here
+SPOTIPY_CLIENT_SECRET=your_spotify_client_secret_here
+
+# Groq API Key (REQUIRED for AI mood analysis)
+# Get from: https://console.groq.com/keys
+GROQ_API_KEY=your_groq_api_key_here
+
+# Deepgram API Key (OPTIONAL - for audio transcription)
+# Get from: https://console.deepgram.com/
+DEEPGRAM_API_KEY=your_deepgram_api_key_here
+```
+
+#### **How to get API keys:**
+
+<details>
+<summary><b>🎵 Spotify API Setup (Click to expand)</b></summary>
+
+1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
+2. Log in with your Spotify account
+3. Click **"Create app"**
+4. Fill in:
+   - **App name:** `Groovi`
+   - **App description:** `Mood-based music recommender`
+   - **Redirect URI:** `http://localhost:8000/callback`
+5. Check the box for **"Web API"**
+6. Click **"Save"**
+7. Click **"Settings"**
+8. Copy your **Client ID** and **Client Secret**
+9. Paste them into your `.env` file
+
+</details>
+
+<details>
+<summary><b>🤖 Groq API Setup (Click to expand)</b></summary>
+
+1. Go to [Groq Console](https://console.groq.com/)
+2. Sign up or log in
+3. Navigate to **API Keys** section
+4. Click **"Create API Key"**
+5. Give it a name: `Groovi`
+6. Copy the API key (you won't see it again!)
+7. Paste it into your `.env` file
+
+</details>
+
+<details>
+<summary><b>🎙️ Deepgram API Setup (Optional - Click to expand)</b></summary>
+
+1. Go to [Deepgram Console](https://console.deepgram.com/signup)
+2. Sign up for free account
+3. Navigate to **API Keys** section
+4. Copy your default API key
+5. Paste it into your `.env` file
+
+**Note:** If you don't add Deepgram key, voice/audio features won't work, but text input will still work fine.
+
+</details>
+
+### **Frontend Configuration**
+
+No configuration needed! The frontend is pre-configured to connect to `http://127.0.0.1:8000`.
+
+If you need to change the backend URL, edit:
+- `frontend_new/src/App.tsx` (line with `fetch('http://127.0.0.1:8000/recommend'`)
+- `frontend_new/src/components/AudioRecorder.tsx` (line with `fetch('http://127.0.0.1:8000/transcribe'`)
+- `frontend_new/src/components/AudioUploader.tsx` (line with `fetch('http://127.0.0.1:8000/transcribe'`)
+
+---
+
+## 🏃 Running the Application
+
+### **Option 1: Manual Start (Recommended for Development)**
+
+#### **Terminal 1 - Start Backend:**
+```bash
+cd song-recommender/backend_new
+
+# Activate virtual environment
+# Windows Command Prompt:
+venv\Scripts\activate
+# Windows PowerShell:
+venv\Scripts\Activate.ps1
+# macOS/Linux:
+source venv/bin/activate
+
+# Start server
 python start_server.py
-
-# Option 2: Using uvicorn directly
-python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-### 3. Start the Frontend
-In a new terminal:
+**Expected output:**
+```
+🎵 Starting Groovi Backend Server...
+📡 Server: http://localhost:8000
+📚 API Docs: http://localhost:8000/docs
+✅ Spotify client initialized
+✅ Groq AI initialized
+✅ Deepgram client initialized
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process
+```
+
+#### **Terminal 2 - Start Frontend:**
 ```bash
-cd frontend
-npm start
+cd song-recommender/frontend_new
+
+# Start dev server
+npm run dev
 ```
 
-## Project Structure
+**Expected output:**
+```
+  VITE v5.0.0  ready in 500 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+```
+
+### **Option 2: Quick Start Scripts**
+
+#### **Windows - Create `start.bat` in `song-recommender/` folder:**
+```batch
+@echo off
+echo Starting Groovi Backend and Frontend...
+start cmd /k "cd backend_new && venv\Scripts\activate && python start_server.py"
+timeout /t 3
+start cmd /k "cd frontend_new && npm run dev"
+```
+
+**Run:** Double-click `start.bat` or run `start.bat` in terminal
+
+#### **macOS/Linux - Create `start.sh` in `song-recommender/` folder:**
+```bash
+#!/bin/bash
+echo "Starting Groovi Backend and Frontend..."
+cd backend_new && source venv/bin/activate && python start_server.py &
+sleep 3
+cd ../frontend_new && npm run dev
+```
+
+**Run:** 
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+---
+
+## 🌐 Access the Application
+
+1. **Frontend UI**: Open browser to [http://localhost:5173](http://localhost:5173)
+2. **Backend API**: [http://localhost:8000](http://localhost:8000)
+3. **API Documentation (Swagger UI)**: [http://localhost:8000/docs](http://localhost:8000/docs)
+4. **Alternative API Docs (ReDoc)**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+---
+
+## 📚 API Documentation
+
+### **Base URL**
+```
+http://localhost:8000
+```
+
+### **Endpoints**
+
+#### **1. Health Check**
+```http
+GET /
+```
+
+**Response:**
+```json
+{
+  "message": "Groovi API is running!",
+  "version": "1.0.0",
+  "status": "healthy"
+}
+```
+
+**cURL Example:**
+```bash
+curl http://localhost:8000/
+```
+
+---
+
+#### **2. Transcribe Audio**
+```http
+POST /transcribe
+```
+
+**Description:** Transcribe audio file to text using Deepgram AI
+
+**Request:**
+- **Content-Type:** `multipart/form-data`
+- **Body:** Audio file (MP3, WAV, WebM, OGG, M4A)
+- **Max size:** 10MB
+
+**Response:**
+```json
+{
+  "transcript": "I'm feeling really happy and energetic today!",
+  "filename": "recording.webm",
+  "duration_estimate": 5.2
+}
+```
+
+**cURL Example:**
+```bash
+curl -X POST "http://localhost:8000/transcribe" \
+  -F "audio=@recording.mp3"
+```
+
+**Python Example:**
+```python
+import requests
+
+with open("recording.mp3", "rb") as audio_file:
+    files = {"audio": audio_file}
+    response = requests.post("http://localhost:8000/transcribe", files=files)
+    print(response.json())
+```
+
+---
+
+#### **3. Get Song Recommendations**
+```http
+POST /recommend
+```
+
+**Description:** Analyze mood from text and get 5 song recommendations
+
+**Request:**
+```json
+{
+  "text": "I'm feeling really happy and energetic today!"
+}
+```
+
+**Response:**
+```json
+{
+  "mood_analysis": {
+    "category": "Very Positive",
+    "description": "You're feeling fantastic and energetic!",
+    "summary": "What an incredible energy you're radiating! Your positivity is infectious and it's the perfect time to celebrate with music that matches your soaring spirits. Whether you're dancing or conquering the world, these songs will amplify your amazing mood and keep those good vibes flowing!",
+    "score": 0.85,
+    "intensity": "moderate"
+  },
+  "songs": [
+    {
+      "name": "Happy",
+      "artist": "Pharrell Williams",
+      "uri": "spotify:track:60nZcImufyMA1MKQY3dcCH",
+      "album_art": "https://i.scdn.co/image/ab67616d0000b273...",
+      "external_url": "https://open.spotify.com/track/60nZcImufyMA1MKQY3dcCH"
+    },
+    // ... 4 more songs
+  ]
+}
+```
+
+**cURL Example:**
+```bash
+curl -X POST "http://localhost:8000/recommend" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"I am feeling great today!"}'
+```
+
+**Python Example:**
+```python
+import requests
+
+data = {"text": "I'm feeling great today!"}
+response = requests.post("http://localhost:8000/recommend", json=data)
+print(response.json())
+```
+
+**JavaScript Example:**
+```javascript
+fetch('http://localhost:8000/recommend', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ text: "I'm feeling great today!" })
+})
+  .then(res => res.json())
+  .then(data => console.log(data));
+```
+
+---
+
+## 📁 Project Structure
+
 ```
 song-recommender/
-├── backend/
-│   ├── main.py              # FastAPI backend
-│   ├── requirements.txt     # Python dependencies
-│   ├── .env                 # Environment variables
-│   └── start_server.py      # Server startup script
-└── frontend/
-    ├── src/
-    │   ├── App.js           # React frontend
-    │   └── App.css          # Styles
-    └── public/
-        └── index.html       # HTML template
+├── backend_new/                    # Backend application (Modular)
+│   ├── config/
+│   │   └── settings.py            # Environment variables & config
+│   ├── models/
+│   │   └── schemas.py             # Pydantic data models
+│   ├── services/
+│   │   ├── audio_transcriber.py   # Deepgram integration
+│   │   ├── mood_analyzer.py       # Groq AI + VADER sentiment
+│   │   ├── song_recommender.py    # Multi-strategy recommendations
+│   │   └── spotify_client.py      # Spotify API wrapper
+│   ├── data/
+│   │   └── mood_libraries.py      # Curated fallback songs by mood
+│   ├── utils/
+│   │   └── helpers.py             # Utility functions
+│   ├── main.py                    # FastAPI application & routes
+│   ├── start_server.py            # Server startup script
+│   ├── test_spotify.py            # Spotify connection test
+│   ├── requirements.txt           # Python dependencies
+│   ├── .env                       # API keys (create this)
+│   └── .gitignore                 # Git ignore rules
+│
+├── frontend_new/                   # Frontend application (React + TypeScript)
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── AudioRecorder.tsx  # Voice recording component
+│   │   │   └── AudioUploader.tsx  # File upload component
+│   │   ├── App.tsx                # Main React component
+│   │   ├── App.css                # Component styles
+│   │   ├── main.tsx               # React entry point
+│   │   └── index.css              # Global styles
+│   ├── public/                    # Static assets
+│   ├── index.html                 # HTML template
+│   ├── package.json               # Node.js dependencies
+│   ├── tsconfig.json              # TypeScript config
+│   ├── vite.config.ts             # Vite build config
+│   └── .gitignore                 # Git ignore rules
+│
+├── backend/                        # Original backend (Legacy)
+├── frontend/                       # Original frontend (Legacy)
+└── README.md                       # This file
 ```
 
-## How It Works
+---
 
-1. **Frontend**: React app where users input their mood
-2. **Backend**: FastAPI server that:
-   - Analyzes mood using VADER sentiment analysis
-   - Gets song recommendations from Spotify API
-   - Returns recommendations to frontend
-3. **Spotify Integration**: Uses Spotify Web API for recommendations and Web Playback SDK for music playback
+## 🐛 Troubleshooting
 
-## Environment Variables
+### **Common Issues**
 
-The backend uses these environment variables (stored in `.env`):
-- `SPOTIPY_CLIENT_ID`: Your Spotify app client ID
-- `SPOTIPY_CLIENT_SECRET`: Your Spotify app client secret
+<details>
+<summary><b>❌ "Failed to fetch" Error</b></summary>
 
-## Troubleshooting
+**Cause:** Backend server is not running.
 
-### "Failed to fetch" Error
-- **Cause**: Backend server not running
-- **Solution**: Start the backend server using the steps above
+**Solution:**
+1. Ensure backend is running: `python start_server.py`
+2. Check backend is accessible: Open [http://localhost:8000](http://localhost:8000)
+3. Verify no firewall blocking port 8000
+4. Check backend terminal for errors
 
-### Spotify Playback Issues
-- **Cause**: Invalid or expired OAuth token
-- **Solution**: Get a new token from Spotify Developer Dashboard and update `SPOTIFY_OAUTH_TOKEN` in `App.js`
+</details>
 
-### CORS Errors
-- **Cause**: Frontend and backend running on different ports
-- **Solution**: Make sure frontend runs on `localhost:3000` and backend on `127.0.0.1:8000`
+<details>
+<summary><b>❌ "Spotify credentials missing" Error</b></summary>
+
+**Cause:** `.env` file missing or incorrect.
+
+**Solution:**
+1. Verify `.env` file exists in `backend_new/` folder
+2. Check API keys are correct (no extra spaces)
+3. Restart backend server after updating `.env`
+4. Test connection: `python test_spotify.py`
+
+</details>
+
+<details>
+<summary><b>❌ "Deepgram API key not configured" Error</b></summary>
+
+**Cause:** Deepgram API key missing (optional feature).
+
+**Solution:**
+1. Add `DEEPGRAM_API_KEY` to `.env` file
+2. Or disable audio features and use text input only
+3. Text input will work fine without Deepgram
+
+</details>
+
+<details>
+<summary><b>❌ "Module not found" Error</b></summary>
+
+**Cause:** Python dependencies not installed or wrong virtual environment.
+
+**Solution:**
+```bash
+cd backend_new
+# Activate venv first!
+pip install -r requirements.txt
+```
+
+</details>
+
+<details>
+<summary><b>❌ "Port 8000 already in use" Error</b></summary>
+
+**Cause:** Another application using port 8000.
+
+**Solution:**
+
+**Option 1 - Kill existing process:**
+```bash
+# Windows:
+netstat -ano | findstr :8000
+taskkill /PID <PID> /F
+
+# macOS/Linux:
+lsof -ti:8000 | xargs kill -9
+```
+
+**Option 2 - Change port:**
+Edit `backend_new/start_server.py`:
+```python
+uvicorn.run(
+    "main:app",
+    host="0.0.0.0",
+    port=8001,  # Changed from 8000
+    reload=True
+)
+```
+
+Then update frontend URLs to use port 8001.
+
+</details>
+
+<details>
+<summary><b>❌ Microphone Access Denied</b></summary>
+
+**Cause:** Browser blocking microphone access.
+
+**Solution:**
+1. Click the lock icon in browser address bar
+2. Allow microphone permissions for the site
+3. Refresh the page
+4. Try recording again
+
+**Chrome:** Settings → Privacy and security → Site Settings → Microphone
+**Firefox:** Preferences → Privacy & Security → Permissions → Microphone
+
+</details>
+
+<details>
+<summary><b>❌ CORS Error</b></summary>
+
+**Cause:** Frontend URL not in allowed origins.
+
+**Solution:**
+Edit `backend_new/config/settings.py`:
+```python
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://your-custom-url:port"  # Add your URL here
+]
+```
+
+Restart backend after changes.
+
+</details>
+
+<details>
+<summary><b>❌ "No songs found" Error</b></summary>
+
+**Cause:** All recommendation strategies failed.
+
+**Solution:**
+1. Check internet connection
+2. Verify Spotify API credentials
+3. Check backend logs for specific errors
+4. Try simpler mood text (e.g., "happy" instead of complex sentences)
+
+</details>
+
+### **Testing Backend**
+
+```bash
+# Test Spotify connection
+cd backend_new
+python test_spotify.py
+
+# Expected output:
+# 🎵 Testing Spotify API...
+# ✅ Spotify client initialized
+# ✅ Connected! Test: Happy by Pharrell Williams
+
+# Test API health
+curl http://localhost:8000/
+
+# Test text recommendation
+curl -X POST "http://localhost:8000/recommend" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"I am happy"}'
+
+# Test audio transcription (if you have an audio file)
+curl -X POST "http://localhost:8000/transcribe" \
+  -F "audio=@test.mp3"
+```
+
+### **Logs & Debugging**
+
+**Backend logs:**
+- Check terminal running `start_server.py`
+- Look for `✅` (success) or `❌` (error) indicators
+- Check specific service logs:
+  - `✅ Spotify client initialized`
+  - `✅ Groq AI initialized`
+  - `✅ Deepgram client initialized`
+
+**Frontend logs:**
+- Open browser DevTools (F12)
+- Check **Console** tab for JavaScript errors
+- Check **Network** tab for failed API requests
+- Look for red error messages
+
+**Enable verbose logging:**
+
+Edit `backend_new/start_server.py`:
+```python
+uvicorn.run(
+    "main:app",
+    host="0.0.0.0",
+    port=8000,
+    reload=True,
+    log_level="debug"  # Changed from "info"
+)
+```
+
+---
+
+## 🧪 Testing
+
+### **Manual Testing Checklist**
+
+Backend:
+- [ ] Health check: `curl http://localhost:8000/`
+- [ ] Spotify test: `python test_spotify.py`
+- [ ] Text recommendation: Test via `/docs` endpoint
+- [ ] Audio transcription: Upload test audio file
+
+Frontend:
+- [ ] Page loads without errors
+- [ ] Text input accepts typing
+- [ ] "Get My Vibe" button works
+- [ ] Mood analysis displays correctly
+- [ ] 5 songs display with album art
+- [ ] Clicking song opens Spotify
+- [ ] Voice recording works (if Deepgram configured)
+- [ ] Audio upload works (if Deepgram configured)
+- [ ] Error messages display properly
+- [ ] Responsive on mobile (use DevTools)
+
+### **Automated Tests** (Future Implementation)
+
+```bash
+# Backend tests (when implemented)
+cd backend_new
+pytest tests/
+
+# Frontend tests (when implemented)
+cd frontend_new
+npm test
+
+# End-to-end tests (when implemented)
+npm run test:e2e
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how you can help:
+
+### **How to Contribute**
+
+1. **Fork the repository**
+   ```bash
+   # Click "Fork" button on GitHub
+   ```
+
+2. **Clone your fork**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/groovi.git
+   cd groovi
+   ```
+
+3. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+4. **Make your changes**
+   - Write clean, documented code
+   - Follow existing code style
+   - Test your changes thoroughly
+
+5. **Commit with descriptive message**
+   ```bash
+   git add .
+   git commit -m "feat: add amazing feature"
+   ```
+
+6. **Push to your fork**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+7. **Open a Pull Request**
+   - Go to original repo on GitHub
+   - Click "New Pull Request"
+   - Describe your changes
+
+### **Commit Message Format**
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: add new feature
+fix: fix bug in mood analyzer
+docs: update README
+style: format code
+refactor: restructure services
+test: add unit tests
+chore: update dependencies
+```
+
+### **Code Style**
+
+**Python (Backend):**
+- Follow [PEP 8](https://pep8.org/)
+- Use type hints
+- Document functions with docstrings
+- Format with `black`
+
+**TypeScript/React (Frontend):**
+- Follow [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+- Use functional components with hooks
+- Add TypeScript types for all props
+- Format with `prettier`
+
+### **Feature Ideas & Roadmap**
+
+**High Priority:**
+- [ ] User authentication (login/signup)
+- [ ] Save mood history
+- [ ] Export playlist to Spotify
+- [ ] Playlist sharing via link
+
+**Medium Priority:**
+- [ ] More AI models (OpenAI GPT, Claude)
+- [ ] Multi-language support (i18n)
+- [ ] Dark/Light theme toggle
+- [ ] Mood journal feature
+- [ ] Weekly mood reports
+
+**Low Priority:**
+- [ ] Mobile app (React Native)
+- [ ] Desktop app (Electron)
+- [ ] Browser extension
+- [ ] Social features (friends, feed)
+- [ ] Mood-based challenges
+
+**Want to work on a feature?** Open an issue first to discuss!
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2025 Groovi Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+## 🙏 Acknowledgments
+
+### **Technologies**
+- [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast Python web framework
+- [React](https://reactjs.org/) - JavaScript library for building UIs
+- [Spotify API](https://developer.spotify.com/) - Music data and streaming
+- [Groq](https://groq.com/) - Lightning-fast AI inference
+- [Deepgram](https://deepgram.com/) - Advanced speech-to-text
+- [VADER](https://github.com/cjhutto/vaderSentiment) - Sentiment analysis lexicon
+
+### **Inspiration**
+- Spotify's Discover Weekly and Daily Mixes
+- Apple Music's mood-based playlists
+- YouTube Music's mood filters
+- Last.fm's music recommendations
+
+### **Special Thanks**
+- Open-source community for amazing libraries
+- Spotify for providing free API access
+- Groq for democratizing AI inference
+- All contributors and testers
+
+---
+
+## 📞 Support & Contact
+
+Having issues? Need help? Want to chat?
+
+### **Get Help:**
+- 📧 **Email:** support@groovi.app *(if available)*
+- 🐛 **Bug Reports:** [GitHub Issues](https://github.com/yourusername/groovi/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/yourusername/groovi/discussions)
+- 💡 **Feature Requests:** [GitHub Issues](https://github.com/yourusername/groovi/issues/new?template=feature_request.md)
+
+### **Connect:**
+- 🌐 **Website:** [groovi.app](https://groovi.app) *(coming soon)*
+- 📚 **Documentation:** [docs.groovi.app](https://docs.groovi.app) *(coming soon)*
+- 📝 **Blog:** [blog.groovi.app](https://blog.groovi.app) *(coming soon)*
+- 🐦 **Twitter:** [@GrooviApp](https://twitter.com/GrooviApp) *(if available)*
+
+---
+
+## 🌟 Star History
+
+If you find Groovi useful, please consider giving it a star! ⭐
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/groovi&type=Date)](https://star-history.com/#yourusername/groovi&Date)
+
+---
+
+## 📊 Project Stats
+
+![GitHub stars](https://img.shields.io/github/stars/yourusername/groovi?style=social)
+![GitHub forks](https://img.shields.io/github/forks/yourusername/groovi?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/yourusername/groovi?style=social)
+![GitHub contributors](https://img.shields.io/github/contributors/yourusername/groovi)
+![GitHub last commit](https://img.shields.io/github/last-commit/yourusername/groovi)
+![GitHub issues](https://img.shields.io/github/issues/yourusername/groovi)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/groovi)
+![GitHub code size](https://img.shields.io/github/languages/code-size/yourusername/groovi)
+![GitHub license](https://img.shields.io/github/license/yourusername/groovi)
+
+---
+
+## 🔄 Version History
+
+### **v1.0.0** - Initial Release (Current)
+**Released:** January 2025
+
+**Features:**
+- ✅ Text input mood analysis
+- ✅ Voice recording support (Deepgram)
+- ✅ Audio file upload support
+- ✅ AI-powered mood analysis (Groq Llama 4)
+- ✅ VADER sentiment fallback
+- ✅ Spotify integration with 5 song recommendations
+- ✅ Beautiful modern UI with animations
+- ✅ Multi-strategy song recommendation system
+- ✅ Real-time audio transcription
+- ✅ Comprehensive error handling
+- ✅ Responsive design (mobile-friendly)
+
+**Tech Stack:**
+- Backend: FastAPI, Python 3.8+
+- Frontend: React 18, TypeScript 5
+- AI: Groq, VADER, Deepgram
+- APIs: Spotify Web API
+
+### **Roadmap**
+
+**v1.1.0** - User Features (Q1 2025)
+- [ ] User authentication (login/signup)
+- [ ] Mood history tracking
+- [ ] Save favorite songs
+- [ ] User profiles
+
+**v1.2.0** - Social Features (Q2 2025)
+- [ ] Share mood analysis & playlists
+- [ ] Friend system
+- [ ] Mood feed
+- [ ] Comments and reactions
+
+**v1.3.0** - Export & Integration (Q2 2025)
+- [ ] Export playlist to Spotify
+- [ ] Apple Music integration
+- [ ] YouTube Music integration
+- [ ] Download playlist as CSV
+
+**v2.0.0** - Platform Expansion (Q3 2025)
+- [ ] Mobile app (React Native)
+- [ ] Desktop app (Electron)
+- [ ] Browser extension
+- [ ] Offline mode
+
+**v2.1.0** - Advanced Features (Q4 2025)
+- [ ] Mood journaling
+- [ ] Weekly/monthly mood reports
+- [ ] AI mood predictions
+- [ ] Personalized recommendations based on history
+- [ ] Multi-language support (i18n)
+
+**Future Ideas:**
+- Integration with wearables (mood detection from heart rate)
+- Group mood sessions
+- Live mood-based radio
+- Collaborative playlists
+- Mood challenges and achievements
+
+---
+
+## 📖 Documentation
+
+### **For Users:**
+- [Getting Started Guide](docs/getting-started.md) *(coming soon)*
+- [User Manual](docs/user-manual.md) *(coming soon)*
+- [FAQ](docs/faq.md) *(coming soon)*
+
+### **For Developers:**
+- [API Reference](docs/api-reference.md) *(coming soon)*
+- [Architecture Guide](docs/architecture.md) *(coming soon)*
+- [Contributing Guide](CONTRIBUTING.md) *(coming soon)*
+- [Code of Conduct](CODE_OF_CONDUCT.md) *(coming soon)*
+
+---
+
+## 🎓 Learn More
+
+### **Technologies Used:**
+- [FastAPI Tutorial](https://fastapi.tiangolo.com/tutorial/)
+- [React Documentation](https://react.dev/learn)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Spotify Web API Guide](https://developer.spotify.com/documentation/web-api)
+- [Groq Documentation](https://console.groq.com/docs)
+- [Deepgram Documentation](https://developers.deepgram.com/)
+
+### **Related Projects:**
+- [Spotipy](https://github.com/spotipy-dev/spotipy) - Spotify API wrapper
+- [VADER Sentiment](https://github.com/cjhutto/vaderSentiment) - Sentiment analysis
+- [FastAPI](https://github.com/tiangolo/fastapi) - Web framework
+
+---
+
+<div align="center">
+
+## 💖 **Made with ❤️ by the Groovi Team**
+
+[Website](https://groovi.app) • [Documentation](https://docs.groovi.app) • [Blog](https://blog.groovi.app) • [Twitter](https://twitter.com/GrooviApp)
+
+**Happy vibing with Groovi! 🎵✨**
+
+---
+
+If you like this project, please give it a ⭐ and share it with friends!
+
+[![Share on Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fgroovi)](https://twitter.com/intent/tweet?text=Check%20out%20Groovi%20-%20AI-powered%20mood-based%20music%20recommender!&url=https://github.com/yourusername/groovi)
+
+</div>
